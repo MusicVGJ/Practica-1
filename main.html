@@ -4,56 +4,59 @@
     <meta charset="UTF-8">
     <title>Music</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="handlebars-v4.0.5.js"></script>
+
 </head>
-<body>
-<header id="header" class="header-full-fixed" style="position: fixed; top: 0px;">
-    <div class="header-container">
-        <div class="header-logo">
-            <a href="/"><img class="header-logo" src="LOGO_PMM1.png" alt="Logo"></a>
-        </div>
-
-
-        <!--
-        <div class="header-nav">
-            <div class="nav">
-                <nav id="horizontal-nav" role="navigation">
-                    <div class="knibbs-container">
-                        <div class="knibbs-button" style="display: block;">
-                            <div class="nav-icon">
-                                <span class="knibbs-bar"></span><span class="knibbs-bar"></span><span class="knibbs-bar"></span>
-                            </div>
-                        </div>
-                        <div id="menu" class="menu knibbsmenu knibbs-offcanvas knibbs-sm">
-                            <div class="knibbs-button">
-                                <div class="nav-icon">
-                                    <i class="fa fa-times"></i>
-                                </div>
-                            </div>
-                            <ul class="nav"><li class="nav-selected nav-path-selected"><a href="https://artisound.co.uk/" target="_self" class="nav-selected nav-path-selected">Home</a></li><li class=""><a href="https://artisound.co.uk/tracks" target="_self" class="">Explore</a></li><li class=""><a href="https://artisound.co.uk/send-me-music" target="_self" class="">Send Me Music</a></li><li class=""><a href="https://artisound.co.uk/faqs" target="_self" class="">FAQs</a></li><li class=""><a href="https://artisound.co.uk/newsroom" target="_self" class="">Newsroom</a></li><li class=""><a href="https://artisound.co.uk/contact" target="_self" class="">Contact</a></li><li class=""><a href="https://artisound.co.uk/become-an-artist" target="_self" class="">Become an Artist</a></li></ul>            </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </nav>
+    <body>
+        <header id="header" class="header-full-fixed" style="position: fixed; top: 0px;">
+            <div class="header-container">
+                <div class="header-logo">
+                    <a href="/"><img class="header-logo" src="LOGO_PMM1.png" alt="Logo"></a>
+                </div>
             </div>
-        </div>
-    </div>
-     -->
-
-</header>
-
-<section id="top">
-
-    
 
 
 
+                <!--
+                <div class="header-nav">
+                    <div class="nav">
+                        <nav id="horizontal-nav" role="navigation">
+                            <div class="knibbs-container">
+                                <div class="knibbs-button" style="display: block;">
+                                    <div class="nav-icon">
+                                        <span class="knibbs-bar"></span><span class="knibbs-bar"></span><span class="knibbs-bar"></span>
+                                    </div>
+                                </div>
+                                <div id="menu" class="menu knibbsmenu knibbs-offcanvas knibbs-sm">
+                                    <div class="knibbs-button">
+                                        <div class="nav-icon">
+                                            <i class="fa fa-times"></i>
+                                        </div>
+                                    </div>
+                                    <ul class="nav"><li class="nav-selected nav-path-selected"><a href="https://artisound.co.uk/" target="_self" class="nav-selected nav-path-selected">Home</a></li><li class=""><a href="https://artisound.co.uk/tracks" target="_self" class="">Explore</a></li><li class=""><a href="https://artisound.co.uk/send-me-music" target="_self" class="">Send Me Music</a></li><li class=""><a href="https://artisound.co.uk/faqs" target="_self" class="">FAQs</a></li><li class=""><a href="https://artisound.co.uk/newsroom" target="_self" class="">Newsroom</a></li><li class=""><a href="https://artisound.co.uk/contact" target="_self" class="">Contact</a></li><li class=""><a href="https://artisound.co.uk/become-an-artist" target="_self" class="">Become an Artist</a></li></ul>            </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+             -->
+
+        </header>
+
+        <section id="top">
 
 
 
+        </section>
+        <script id="expressions-template" type="text/x-handlebars-template">
+            {{description.escaped}}
+            {{example}}
+            <br><br>
 
-
-</div>
-
-</section>
-
-</body>
+            {{description.unescaped}}
+            {{{example}}}
+        </script>
+        <div class="content-placeholder"></div>
+    </body>
 </html>
