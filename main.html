@@ -4,44 +4,56 @@
         <meta charset="UTF-8">
         <title>Music</title>
         <link rel="stylesheet" type="text/css" href="style.css">
-        <script src="handlebars-v4.0.5.js"></script>
-        <script src="main.js"></script>
+        <script src="mainJS.js"></script>
 
     </head>
     <body>
-        <header id="header" class="header-full-fixed" style="position: fixed; top: 0px;">
-            <div class="header-container">
-                <div class="header-logo">
-                    <a href="/"><img class="header-logo" src="LOGO_PMM1.png" alt="Logo"></a>
-                </div>
+        <div id="action"></div>
+        <script type="text/x-handlebars-template" id="index">
+            <div>Hola me llamo {{{ name }}}</div>
+        </script>
+        <scr
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js"></script>
+
+        <script type="text/javascript">
+            var template = document.getElementById('index');
+            console.log(template);
+        </script>
+
+    <!--<header id="header" class="header-full-fixed" style="position: fixed; top: 0px;">
+        <!--v class="header-container">
+            <div class="header-logo">
+                <a href="/"><img class="header-logo" src="LOGO_PMM1.png" alt="Logo"></a>
             </div>
+        </div>
 
 
 
-                <!--
-                <div class="header-nav">
-                    <div class="nav">
-                        <nav id="horizontal-nav" role="navigation">
-                            <div class="knibbs-container">
-                                <div class="knibbs-button" style="display: block;">
+
+            <div class="header-nav">
+                <div class="nav">
+                    <nav id="horizontal-nav" role="navigation">
+                        <div class="knibbs-container">
+                            <div class="knibbs-button" style="display: block;">
+                                <div class="nav-icon">
+                                    <span class="knibbs-bar"></span><span class="knibbs-bar"></span><span class="knibbs-bar"></span>
+                                </div>
+                            </div>
+                            <div id="menu" class="menu knibbsmenu knibbs-offcanvas knibbs-sm">
+                                <div class="knibbs-button">
                                     <div class="nav-icon">
-                                        <span class="knibbs-bar"></span><span class="knibbs-bar"></span><span class="knibbs-bar"></span>
+                                        <i class="fa fa-times"></i>
                                     </div>
                                 </div>
-                                <div id="menu" class="menu knibbsmenu knibbs-offcanvas knibbs-sm">
-                                    <div class="knibbs-button">
-                                        <div class="nav-icon">
-                                            <i class="fa fa-times"></i>
-                                        </div>
-                                    </div>
-                                    <ul class="nav"><li class="nav-selected nav-path-selected"><a href="https://artisound.co.uk/" target="_self" class="nav-selected nav-path-selected">Home</a></li><li class=""><a href="https://artisound.co.uk/tracks" target="_self" class="">Explore</a></li><li class=""><a href="https://artisound.co.uk/send-me-music" target="_self" class="">Send Me Music</a></li><li class=""><a href="https://artisound.co.uk/faqs" target="_self" class="">FAQs</a></li><li class=""><a href="https://artisound.co.uk/newsroom" target="_self" class="">Newsroom</a></li><li class=""><a href="https://artisound.co.uk/contact" target="_self" class="">Contact</a></li><li class=""><a href="https://artisound.co.uk/become-an-artist" target="_self" class="">Become an Artist</a></li></ul>            </div>
-                                <div class="clearfix"></div>
-                            </div>
-                        </nav>
-                    </div>
+                                <ul class="nav"><li class="nav-selected nav-path-selected"><a href="https://artisound.co.uk/" target="_self" class="nav-selected nav-path-selected">Home</a></li><li class=""><a href="https://artisound.co.uk/tracks" target="_self" class="">Explore</a></li><li class=""><a href="https://artisound.co.uk/send-me-music" target="_self" class="">Send Me Music</a></li><li class=""><a href="https://artisound.co.uk/faqs" target="_self" class="">FAQs</a></li><li class=""><a href="https://artisound.co.uk/newsroom" target="_self" class="">Newsroom</a></li><li class=""><a href="https://artisound.co.uk/contact" target="_self" class="">Contact</a></li><li class=""><a href="https://artisound.co.uk/become-an-artist" target="_self" class="">Become an Artist</a></li></ul>            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </nav>
                 </div>
             </div>
-             -->
+        </div>
+
 
         </header>
 
@@ -58,6 +70,6 @@
             {{description.unescaped}}
             {{{example}}}
         </script>
-        <div class="content-placeholder"></div>
+        <div class="content-placeholder"></div>-->
     </body>
 </html>
