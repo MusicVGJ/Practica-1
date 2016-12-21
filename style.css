@@ -104,7 +104,7 @@ body:after {
     position: fixed;
     top: 0px;
     background-color: black;
-    height: 20%;
+    height: 10%;
     text-align: center;
 }
 
@@ -118,7 +118,9 @@ body:after {
 #LogoID {
     width: 50%;
     height: 70%;
+    margin-top: 2.5%;
     background-color: transparent;
+
 
 }
 
