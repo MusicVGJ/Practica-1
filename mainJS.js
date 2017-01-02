@@ -32,3 +32,39 @@ function crearCabecera(){
     document.body.appendChild(header);
 
 }
+
+/*--------------------
+---------JQUERY-------
+ --------------------*/
+
+/*--------------------
+¿Què és JQUERY?
+----------------------
+
+JQUERY  permet realitzar accions sobre elements. Podem realitzar diferents accions
+sobre alguns elements com una classe o un element amb un id concret.
+
+
+-----------------------
+JQUERY Selectors
+-----------------------
+
+Els Selectors permeten selecccionar i manipular els elements HTML. Els selectors són
+utilitzats per a trobar o seleccionar els elements HTML basant-se en el seu nom,
+id, classe, tipus, atribut, valor, etc.
+
+Tots els selectors comencen amb el signe del dòlar i parèntesi: $()
+
+Exemple. Seleccionem els paràgrafs: $("p")
+
+
+
+ */
+
+
+
+$(function(){
+
+    // jQuery methods go here...
+
+});
