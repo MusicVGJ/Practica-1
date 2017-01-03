@@ -7,6 +7,34 @@ body{
     position: relative;
 }
 
+#cabecera{background-color: black;}
+#logo{height: 50px; float: left;}
+
+#navegador {
+    margin-bottom: 0;
+    background-color: #2d2d30;
+    border: 0;
+    letter-spacing: 4px;
+    opacity:0.9;
+}
+
 #recomenats {padding-top:50px;height:500px;color: #fff; background-color: #1E88E5;}
 #top {padding-top:50px;height:500px;color: #fff; background-color: #673ab7;}
-#section3 {padding-top:50px;height:500px;color: #fff; background-color: #ff9800;}
+#results {padding-top:50px;height:500px;color: #fff; background-color: #ff9800;}
+
+#search-form, .form-control {
+    margin-bottom: 20px;
+}
+
+.cover {
+    width: 300px;
+    height: 300px;
+    display: inline-block;
+    background-size: cover;
+}
+.cover:hover {
+    cursor: pointer;
+}
+.cover.playing {
+    border: 5px solid #e45343;
+}

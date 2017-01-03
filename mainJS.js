@@ -4,7 +4,6 @@
     crearCabecera();
     crearSeccions();
 
-
 }());
 
 function crearCabecera(){
@@ -16,8 +15,9 @@ function crearCabecera(){
 
 
     div.className = "container-fluid";
-    div.style.backgroundColor = "black";
+    div.id = "cabecera";
     nav.className="navbar navbar-inverse navbar-fixed-top";
+    nav.id = "navegador";
 
     header.appendChild(nav);
     nav.appendChild(div);
@@ -47,9 +47,7 @@ function crearCabecera(){
     var logo = document.createElement("img");
     logo.src = "https://s20.postimg.org/nwechnqfx/logo.gif";
     logo.className = "img-responsive";
-    logo.style.height = "50px";
-    logo.style.float = "left";
-
+    logo.id = "logo";
 
     a.appendChild(logo);
 
@@ -79,8 +77,12 @@ function crearCabecera(){
     var aux2 = document.createElement("div");
 
     bBuscador.type = "submit";
-    bBuscador.method = "POST";
-    bBuscador.className = "btn btn-default";
+    //bBuscador.method = "POST";
+
+    //bBuscador.className = "btn btn-default";
+    bBuscador.id = "search";
+    bBuscador.value = "Search";
+    bBuscador.className = "btn btn-primary";
     i.className = "glyphicon glyphicon-search";
     form.className="navbar-form";
     form.setAttribute('role','search');
@@ -90,6 +92,9 @@ function crearCabecera(){
     input.type =  "text";
     input.className = "form-control";
     input.placeholder = "Busca la teva música";
+    input.id = "query";
+    input.value = "";
+
 
     bBuscador.appendChild(i);
     aux.appendChild(input);
@@ -133,7 +138,7 @@ function crearSeccions() {
     sRecomenats.id = "recomenats";
     sRecomenats.className = "container-fluid";
 
-    sBuscador.id = "section2";
+    sBuscador.id = "results";
     sBuscador.className = "container-fluid";
 
     sTop.id = "top";
@@ -150,7 +155,6 @@ function crearSeccions() {
     var hBuscador = document.createElement("h1");
     var title3 = document.createTextNode("Resultats de la búsqueda");
     hBuscador.appendChild(title3);
-
 
     sRecomenats.appendChild(hRecomenats);
     sTop.appendChild(hTop);
