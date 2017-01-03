@@ -3,17 +3,30 @@
     <head>
         <meta charset="UTF-8">
         <title>LSOUND</title>
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <!--<link rel="stylesheet" type="text/css" href="style.css"> -->
         <link rel="shortcut icon" href="https://s20.postimg.org/rska44fx9/favicon.png" />
         <link rel="apple-touch-icon" href="https://s20.postimg.org/rska44fx9/favicon.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <style>
+            @import url(http://meyerweb.com/eric/tools/css/reset/reset.css);
+
+            .clearfix:after { content: "."; visibility: hidden; display: block; height: 0; clear: both; }
+
+            body{
+                position: relative;
+            }
+
+            #recomenats {padding-top:50px;height:500px;color: #fff; background-color: #1E88E5;}
+            #top {padding-top:50px;height:500px;color: #fff; background-color: #673ab7;}
+            #section3 {padding-top:50px;height:500px;color: #fff; background-color: #ff9800;}
+
+
+        </style>
+
     </head>
 
-    <body>
-        <header>
-
-        </header>
+    <body data-spy = "scroll" data-target = ".navbar" data-offset = "50">
 
 
     <!--<header id="header" class="header-full-fixed" style="position: fixed; top: 0px;">
@@ -84,7 +97,6 @@
     <script src="mainJS.js"></script>
 
 
-        http://www.w3schools.com/bootstrap/bootstrap_get_started.asp
 
     </body>
 </html>
