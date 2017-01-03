@@ -2,38 +2,12 @@
 
 
     crearCabecera();
-
+    crearSeccions();
 
 
 }());
 
 function crearCabecera(){
-/*
-    var header = document.createElement("header");
-    var container1 = document.createElement("container");
-
-    header.id = "cabecera";
-    header.className = "header-full-fixed";
-    container1.id="cont1";
-    container1.className= "container-fluid";
-    container1.style.backgroundColor = "black";
-
-    var logo = document.createElement("a");
-    var logo_img = document.createElement("img");
-
-    logo_img.className = "header-logo";
-    logo_img.id="LogoID";
-    logo_img.src = "https://s20.postimg.org/9e9r053ml/lsoundfinal.png";
-    logo_img.alt = "Logo";
-
-    logo.href = "";
-
-    logo.appendChild(logo_img);
-    container1.appendChild(logo);
-    header.appendChild(container1);
-
-    document.body.appendChild(header);
-*/
 
     var header = document.createElement("header");
     var nav = document.createElement("nav");
@@ -118,10 +92,6 @@ function crearCabecera(){
     input.placeholder = "Busca la teva música";
 
     bBuscador.appendChild(i);
-
-    //input.style.float = "left";
-    //bBuscador.style.float = "left";
-
     aux.appendChild(input);
     aux2.appendChild(bBuscador);
     aux.appendChild(aux2);
@@ -136,7 +106,7 @@ function crearCabecera(){
 
     li1.appendChild(a1);
     li2.appendChild(a2);
-    li3.appendChild(aux);
+    li3.appendChild(form);
 
     ul.appendChild(li1);
     ul.appendChild(li2);
@@ -144,6 +114,17 @@ function crearCabecera(){
 
     seccions.appendChild(ul);
     barra.appendChild(a);
+
+
+
+    div.appendChild(barra);
+    div.appendChild(seccions);
+    document.body.appendChild(header);
+
+
+}
+
+function crearSeccions() {
 
     var sRecomenats = document.createElement("section");
     var sBuscador = document.createElement("section");
@@ -175,18 +156,15 @@ function crearCabecera(){
     sTop.appendChild(hTop);
     sBuscador.appendChild(hBuscador);
 
-
-    div.appendChild(barra);
-    div.appendChild(seccions);
-    document.body.appendChild(header);
-
     document.body.appendChild(sRecomenats);
     document.body.appendChild(sTop);
     document.body.appendChild(sBuscador);
 
-
-
 }
+
+
+
+
 
 /*--------------------
 ---------JQUERY-------
