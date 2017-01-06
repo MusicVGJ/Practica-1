@@ -225,20 +225,33 @@ function crearBuscador(){
         var canco;
         playlist = response.albums.items;
         console.log(playlist);
+        var i = 0;
         playlist.forEach(function() {
+
+            var SearchArtist = function(){
+                var artist = "";
+                var j = 0;
+                playlist[i].artists.forEach(function(){
+                    artist = artist + playlist[i].artists[j].name+" ";
+                    j++;
+                })
+                return artist;
+            }
+
+            var artist = SearchArtist();
 
             canco = {
                 file: "resources/tracks/01.mp3",
                 thumb: "resources/thumbs/01.jpg",
                 trackName: "Dusk",
-                trackArtist: "Tobu & Syndec",
-                trackAlbum: "Single",
+                trackArtist: artist,
+                trackAlbum: playlist[i].name,
             }
 
             playlistReproductor.push(canco);
-
+            i++;
         })
-
+        console.log(playlistReproductor);
 
     }
     var searchAlbums = function (query) {
