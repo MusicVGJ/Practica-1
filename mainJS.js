@@ -203,7 +203,7 @@ function crearSeccions() {
 
 function crearBuscador(){
 
-
+/*
     var templateSource = document.getElementById('results-template').innerHTML,
         template = Handlebars.compile(templateSource),
         resultsPlaceholder = document.getElementById('results'),
@@ -215,11 +215,34 @@ function crearBuscador(){
             url: 'https://api.spotify.com/v1/albums/' + albumId,
             success: function (response) {
                 callback(response);
+
             }
         });
-    };
+    };*/
+    var playlist;
+    var playlistReproductor = [];
+    var callback = function(response){
+        var canco;
+        playlist = response.albums.items;
+        console.log(playlist);
+        playlist.forEach(function() {
 
+            canco = {
+                file: "resources/tracks/01.mp3",
+                thumb: "resources/thumbs/01.jpg",
+                trackName: "Dusk",
+                trackArtist: "Tobu & Syndec",
+                trackAlbum: "Single",
+            }
+
+            playlistReproductor.push(canco);
+
+        })
+
+
+    }
     var searchAlbums = function (query) {
+        var albums;
         $.ajax({
             url: 'https://api.spotify.com/v1/search',
             data: {
@@ -227,47 +250,20 @@ function crearBuscador(){
                 type: 'album'
             },
             success: function (response) {
-                resultsPlaceholder.innerHTML = template(response);
+                console.log("Hola");
+                console.log(response);
+                callback(response);
             }
         });
     };
 
-    results.addEventListener('click', function (e) {
-        var target = e.target;
-        if (target !== null && target.classList.contains('cover')) {
-            if (target.classList.contains(playingCssClass)) {
-                audioObject.pause();
-            } else {
-                if (audioObject) {
-                    audioObject.pause();
-                }
-                fetchTracks(target.getAttribute('data-album-id'), function (data) {
-                    audioObject = new Audio(data.tracks.items[0].preview_url);
-                    audioObject.play();
-                    target.classList.add(playingCssClass);
-                    audioObject.addEventListener('ended', function () {
-                        target.classList.remove(playingCssClass);
-                    });
-                    audioObject.addEventListener('pause', function () {
-                        target.classList.remove(playingCssClass);
-                    });
-                });
-            }
-        }
-    });
-
 
     console.log(document.getElementById('navbar-form'));
 
-
-    document.getElementById('navbar-form').addEventListener('submit', function (e) {
-        e.preventDefault();
-        console.log("correcte1");
-        console.log(document.getElementById('query').value);
-        searchAlbums(document.getElementById('query').value);
-        console.log("correcte2");
-
-    }, false);
+        document.getElementById('navbar-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            searchAlbums(document.getElementById('query').value);
+        }, false);
 
 
 
@@ -399,10 +395,6 @@ function creaReproductor(){
     return divPrincipal;
 
 }
-
-
-
-
 
 
 
