@@ -19,9 +19,9 @@ body{
     opacity:0.9;
 }
 
-#recomenats {padding-top:50px;height:500px;color: #fff; background-color: #1E88E5;}
-#top {padding-top:50px;height:500px;color: #fff; background-color: #673ab7;}
-#resultats {padding-top:50px;height:500px;color: #fff; background-color: #ff9800;}
+#recomenats {padding-top:50px;color: #fff; background-color: #1E88E5;}
+#top {padding-top:50px;color: #fff; background-color: #673ab7;}
+#resultats {padding-top:50px;color: #fff; background-color: #ff9800;}
 
 #search-form, .form-control {
     margin-bottom: 20px;
