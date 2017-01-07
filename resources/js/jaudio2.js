@@ -15,11 +15,6 @@
 // License Info
 // - Released under the MIT license.
 
-
-var songs = [];
-
-
-
 (function($){
 
   var pluginName = "jAudio",
@@ -200,20 +195,7 @@ var songs = [];
           case "next": self.next.call(self, $btn); break;
           case "pause": self.pause.call(self, $btn); break;
           case "stop": self.stop.call(self, $btn); break;
-          case "play":
-
-            self.play.call(self, $btn);
-            var cancion = {
-              name:self.settings.playlist[self.currentTrack].trackName,
-              artist:self.settings.playlist[self.currentTrack].trackArtist,
-              album:self.settings.playlist[self.currentTrack].trackAlbum,
-              id:self.settings.playlist[self.currentTrack].id,
-              idArtist:self.settings.playlist[self.currentTrack].idArtista
-            };
-            console.log(songs);
-            songs.push(cancion);
-            localStorage.setItem('songs',JSON.stringify(songs));
-            break;
+          case "play": self.play.call(self, $btn); break;
         };
 
       });
@@ -228,16 +210,6 @@ var songs = [];
         if(self.currentTrack === index) return;
 
         self.changeTrack(index);
-        var cancion = {
-          name:self.settings.playlist[self.currentTrack].trackName,
-          artist:self.settings.playlist[self.currentTrack].trackArtist,
-          album:self.settings.playlist[self.currentTrack].trackAlbum,
-          id:self.settings.playlist[self.currentTrack].id,
-          idArtist:self.settings.playlist[self.currentTrack].idArtista
-        };
-        console.log(songs);
-        songs.push(cancion);
-        localStorage.setItem('songs',JSON.stringify(songs));
       });
 
       // - volume's bar events
@@ -451,7 +423,7 @@ var songs = [];
 
   }
 
-  $.fn["jAudio"] = function( options )
+  $.fn["jAudio2"] = function( options )
   {
     var instantiate = function()
     {

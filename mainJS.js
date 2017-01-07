@@ -1,42 +1,22 @@
 
+
 (function (){
 
 
     crearCabecera();
     crearSeccions();
     crearBuscador();
+    omplirTop();
+    omplirRecomanats();
 
-    /*var t = {
-        playlist: [
-            {
-                file: "resources/tracks/01.mp3",
-                thumb: "resources/thumbs/01.jpg",
-                trackName: "Dusk",
-                trackArtist: "Tobu & Syndec",
-                trackAlbum: "Single",
-            },
-            {
-                file: "resources/tracks/02.mp3",
-                thumb: "resources/thumbs/02.jpg",
-                trackName: "Blank",
-                trackArtist: "Disfigure",
-                trackAlbum: "Single",
-            },
-            {
-                file: "resources/tracks/03.mp3",
-                thumb: "resources/thumbs/03.jpg",
-                trackName: "Fade",
-                trackArtist: "Alan Walker",
-                trackAlbum: "Single",
-            }
-        ]
-    }
-
-    $("#rep3").jAudio(t);*/
-
-   // crearTop();
 
 }());
+
+function omplirRecomanats(){
+
+    var recomanats = JSON.parse(localStorage.getItem("songs"));
+    console.log(recomanats);
+}
 
 function crearCabecera(){
 
@@ -157,7 +137,6 @@ function crearCabecera(){
     barra.appendChild(a);
 
 
-
     div.appendChild(barra);
     div.appendChild(seccions);
     document.body.appendChild(header);
@@ -203,28 +182,11 @@ function crearSeccions() {
 
 function crearBuscador(){
 
-/*
-    var templateSource = document.getElementById('results-template').innerHTML,
-        template = Handlebars.compile(templateSource),
-        resultsPlaceholder = document.getElementById('results'),
-        playingCssClass = 'playing',
-        audioObject = null;
-
-    var fetchTracks = function (albumId, callback) {
-        $.ajax({
-            url: 'https://api.spotify.com/v1/albums/' + albumId,
-            success: function (response) {
-                callback(response);
-
-            }
-        });
-    };*/
     var playlist;
     var playlistReproductor = [];
     var callback = function(response){
         var canco;
         playlist = response.albums.items;
-        console.log(playlist);
         var i = 0;
         playlist.forEach(function() {
 
@@ -240,24 +202,41 @@ function crearBuscador(){
 
             var artist = SearchArtist();
 
+
+            var resposta = $.ajax({
+                async: false,
+                url: 'https://api.spotify.com/v1/albums/' + playlist[i].id,
+                success: function (response) {
+                }
+            });
+
+            var album = resposta.responseJSON;
             canco = {
-                file: "resources/tracks/01.mp3",
-                thumb: "resources/thumbs/01.jpg",
-                trackName: "Dusk",
+
+                file: album.tracks.items[0].preview_url,
+                thumb: playlist[i].images[0].url,
+                trackName: album.tracks.items[0].name,
                 trackArtist: artist,
                 trackAlbum: playlist[i].name,
+                id: album.tracks.items[0].id,
+                idArtista: album.artists[0].id
             }
 
             playlistReproductor.push(canco);
             i++;
         })
-        console.log(playlistReproductor);
+
+        var t = { playlist: []};
+        t.playlist = playlistReproductor;
+        $('#rep3').jAudio2(t);
+        playlistReproductor = [];
 
     }
     var searchAlbums = function (query) {
         var albums;
         $.ajax({
             url: 'https://api.spotify.com/v1/search',
+            async: false,
             data: {
                 q: query,
                 type: 'album'
@@ -276,8 +255,8 @@ function crearBuscador(){
         document.getElementById('navbar-form').addEventListener('submit', function (e) {
             e.preventDefault();
             searchAlbums(document.getElementById('query').value);
-        }, false);
 
+    }, false);
 
 
 }
@@ -409,7 +388,88 @@ function creaReproductor(){
 
 }
 
+function omplirTop(){
 
+    var resposta = $.ajax({
+        url: 'http://ws.audioscrobbler.com/2.0/?method=geo.gettoptracks&country=germany&api_key=4cf27c66585c816932c910dcdf9c0237&format=json&limit=10',
+        limit: 10,
+        async: false
+    });
+    var topLastFM = resposta.responseJSON.tracks.track;
+    var i = 0;
+    var playlistReproductor2 = [];
+    topLastFM.forEach(function() {
+
+        var resposta = $.ajax({
+            async: false,
+            url: 'https://api.spotify.com/v1/search?q="'+topLastFM[i].name+'&type=track&limit=1'
+        });
+
+        var cancoLastFM = resposta.responseJSON;
+
+       var canco2 = {
+            file:cancoLastFM.tracks.items[0].preview_url ,
+            thumb: cancoLastFM.tracks.items[0].album.images[0].url ,
+            trackName: topLastFM[i].name,
+            trackArtist: topLastFM[i].artist.name,
+            trackAlbum: cancoLastFM.tracks.items[0].album.name,
+        }
+        playlistReproductor2.push(canco2);
+        i++;
+    });
+    var t2 = { playlist: []};
+    t2.playlist = playlistReproductor2;
+    $('#rep2').jAudio(t2);
+
+
+    /*var limit_results = 15;
+// Inicia la aplicación cuando el DOM se ha cargado.
+    var country = "es";
+   // var key = google_api_key;
+    var video_category_id = 10;
+    var api_url = "https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=MostPopular&regionCode="+country+"&maxResults="+ limit_results +"&videoCategoryId="+ video_category_id +"&key="+"AIzaSyAO9gJjoY3zVLKCxF4gUAkJXQaZ-JBbiNo"+"&part=snippet,player";
+    //var api_url = "https:https://www.googleapis.com/youtube/v3/videoCategories?part=snippet&regionCode={e}s&key={AIzaSyAO9gJjoY3zVLKCxF4gUAkJXQaZ-JBbiNo}";
+    var resposta = $.ajax({
+        async: false,
+        url: api_url,
+        success: function (response) {
+            console.log(response);
+        }
+
+    });
+    console.log("----");
+    console.log(resposta);
+    var topYoutube = resposta.responseJSON.items;
+    var llistaTop;
+    var i = 0;
+    topYoutube.forEach(function(){
+
+        var resposta = $.ajax({
+            async: false,
+            url: 'https//api.spotify.com/v1/search?q='+topYoutube[i].snippet.title+'&type=track&limit=1',
+            success: function (response) {
+                console.log(response);
+            }
+        });
+
+        //var cancoSpoty = resposta.responseJSON;
+    /*
+        canco = {
+            file: album.tracks.items[0].preview_url,
+
+            thumb: playlist[i].images[0].url,
+            trackName: album.tracks.items[0].name,
+            trackArtist: artist,
+            trackAlbum: playlist[i].name,
+        }
+
+        playlistReproductor.push(canco);*/
+       /* i++;
+
+    })*/
+
+
+}
 
 /*--------------------
 ---------JQUERY-------
@@ -442,12 +502,21 @@ Exemple. Seleccionem els paràgrafs: $("p")
 
 
 $(document).ready(function(){
-
-    // jQuery methods go here...
-    /*$('#recomenats').slick({
-
-        //setting-name: setting-value
+/*
+    $.ajax({
+        url: 'https://api.spotify.com/api/token',
+        type: 'POST',
+        async: false,
+        data:{
+           grant_type: 'authorization_code',
+            code: 'code',
+            redirect_uri: redirect_uri
+        },
+        success: function (response) {
+            console.log("Succés!");
+        }
     });*/
+
 
 
 });
