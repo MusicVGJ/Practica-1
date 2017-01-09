@@ -1,22 +1,132 @@
 
 
 (function (){
-
-
     crearCabecera();
     crearSeccions();
     crearBuscador();
     omplirTop();
     omplirRecomanats();
 
-
 }());
 
-function omplirRecomanats(){
 
-    var recomanats = JSON.parse(localStorage.getItem("songs"));
-    console.log(recomanats);
+function omplirRecomanats(){
+    var playlistReproductor = [];
+    var playlistRecomanatsSpoty = [];
+    var history = JSON.parse(localStorage.getItem("songs"));
+    var limit = 0;
+    if(history === null){
+
+        $("#recomenats").hide();
+
+    }else{
+      switch( history.length )
+        {
+            case 1: limit = 1; break;
+            case 2: limit = 2;break;
+            case 3: limit = 3; break;
+            case 4: limit = 4;break;
+            case 5: limit = 5; break;
+            case 6: limit = 6; break;
+            case 7: limit = 7; break;
+            case 8: limit = 8; break;
+            case 9: limit = 9;break;
+            case 10: limit = 10;break;
+            default: limit = history.length;break;
+
+        };
+        var recomanats=[];
+        var idArtist;
+        if(limit <= 10) {
+            for(var i = 0; i<limit;i++) {
+                idArtist = history[i].idArtist;
+                var resposta = $.ajax({
+                    async: false,
+                    url: 'https://api.spotify.com/v1/artists/' + idArtist + '/related-artists',
+                    limit: 1,
+                    success: function (response) {
+                    }
+                });
+                var artistesRecomanat = resposta.responseJSON;
+                recomanats.push(artistesRecomanat);
+            }
+
+            var contador = 0;
+            var index = 0;
+            var artistesFinals = [];
+
+            while(contador < 10){
+                for(var i = 0; i < limit; i++){
+                    if(contador < 10){
+                        var resposta = $.ajax({
+                            async: false,
+                            url: 'https://api.spotify.com/v1/search?q="'+recomanats[i].artists[index].name+'&type=track&limit=1',
+                            success: function(response){
+                                playlistRecomanatsSpoty.push(response);
+                                contador++;
+
+                            }
+
+                    });
+                    }
+                }
+                index++;
+            }
+
+        }else{
+            console.log(history);
+           for(var i = limit-1; i>=limit-10;i--){
+               console.log("Estic al FORRRRR!");
+                var resposta = $.ajax({
+                    async: false,
+                    url: 'https://api.spotify.com/v1/artists/' + history[i].idArtist + '/related-artists',
+                    limit: 1,
+                    success: function (response) {
+                    }
+                });
+                var artistesRecomanat = resposta.responseJSON;
+                recomanats.push(artistesRecomanat);
+            }
+            console.log("recomanats");
+            console.log(recomanats);
+
+            for(var i = 0; i < 10; i++){
+                    var resposta = $.ajax({
+                        async: false,
+                        url: 'https://api.spotify.com/v1/search?q="'+recomanats[i].artists[0].name+'&type=track&limit=1'
+                    });
+                 playlistRecomanatsSpoty.push(resposta.responseJSON);
+
+            }
+        }
+
+        for(var i = 0; i<10;i++){
+
+            canco = {
+
+                file: playlistRecomanatsSpoty[i].tracks.items[0].preview_url,
+                thumb: playlistRecomanatsSpoty[i].tracks.items[0].album.images[0].url,
+                trackName: playlistRecomanatsSpoty[i].tracks.items[0].name,
+                trackArtist:  playlistRecomanatsSpoty[i].tracks.items[0].artists[0].name,
+                trackAlbum: playlistRecomanatsSpoty[i].tracks.items[0].album.name,
+                id: playlistRecomanatsSpoty[i].tracks.items[0].album.id,
+                idArtista: playlistRecomanatsSpoty[i].tracks.items[0].artists[0].id
+            }
+
+            playlistReproductor.push(canco);
+
+        }
+
+        var t3 = { playlist: []};
+        t3.playlist = playlistReproductor;
+        $('#rep1').jAudio3(t3);
+    }
+
+
 }
+
+
+
 
 function crearCabecera(){
 
@@ -40,6 +150,7 @@ function crearCabecera(){
 
     menuButton.type = "button";
     menuButton.className = "navbar-toggle";
+    menuButton.id = "botoMenu";
     menuButton.setAttribute('data-toggle','collapse');
     menuButton.setAttribute('data-target','#myNavbar');
 
@@ -78,9 +189,8 @@ function crearCabecera(){
     var a1 = document.createElement("a");
     var a2 = document.createElement("a");
 
-    var t1 = document.createTextNode("Recomanats");
-    var t2 = document.createTextNode("Top");
-
+    var t1 = document.createTextNode("RECOMMENDED ARTISTS");
+    var t2 = document.createTextNode("TOP 10 HITS");
     var aux = document.createElement("div");
     var form = document.createElement("form");
     var input = document.createElement("input");
@@ -89,11 +199,7 @@ function crearCabecera(){
     var aux2 = document.createElement("div");
 
     bBuscador.type = "submit";
-    //bBuscador.method = "POST";
-
-    //bBuscador.className = "btn btn-default";
     bBuscador.id = "search";
-   //bBuscador.value = "Search";
     bBuscador.className = "btn btn-primary";
     i.className = "glyphicon glyphicon-search";
     form.className="navbar-form";
@@ -105,7 +211,7 @@ function crearCabecera(){
 
     input.type =  "text";
     input.className = "form-control";
-    input.placeholder = "Busca la teva música";
+    input.placeholder = "What're you looking for?";
     input.id = "query";
     input.value = "";
     input.setAttribute("ng-model", "query");
@@ -152,20 +258,29 @@ function crearSeccions() {
 
 
     var hRecomenats = document.createElement("h1");
-    var title1 = document.createTextNode("Recomanats per a tu");
+    hRecomenats.className = "display-1";
+
+    var title1 = document.createTextNode("RECOMMENDED ARTISTS");
     hRecomenats.appendChild(title1);
     var reproductor1 = creaReproductor();
     reproductor1.id = "rep1";
 
     var hTop = document.createElement("h1");
-    var title2 = document.createTextNode("Top del moment");
+    hTop.className = "display-1";
+    var title2 = document.createTextNode("TOP 10 HITS");
+    var small = document.createElement("small");
+    var aux = document.createTextNode(" by LastFM");
+    small.appendChild(aux);
     hTop.appendChild(title2);
+    hTop.appendChild(small);
     var reproductor2 = creaReproductor();
     reproductor2.id = "rep2";
 
 
     var hBuscador = document.createElement("h1");
-    var title3 = document.createTextNode("Resultats de la cerca");
+    hBuscador.className = "display-1";
+
+    var title3 = document.createTextNode("SEARCH RESULTS");
     hBuscador.appendChild(title3);
     var reproductor3 = creaReproductor();
     reproductor3.id = "rep3";
@@ -177,18 +292,19 @@ function crearSeccions() {
     sTop.appendChild(reproductor2);
     sBuscador.appendChild(hBuscador);
     sBuscador.appendChild(reproductor3);
+    $("#resultats").hide();
 
 }
 
 function crearBuscador(){
 
+
     var playlist;
     var playlistReproductor = [];
     var callback = function(response){
         var canco;
-        playlist = response.albums.items;
-        var i = 0;
-        playlist.forEach(function() {
+        playlist = response.tracks.items;
+        for(var i = 0; i<10;i++){
 
             var SearchArtist = function(){
                 var artist = "";
@@ -202,29 +318,23 @@ function crearBuscador(){
 
             var artist = SearchArtist();
 
-
-            var resposta = $.ajax({
-                async: false,
-                url: 'https://api.spotify.com/v1/albums/' + playlist[i].id,
-                success: function (response) {
-                }
-            });
-
-            var album = resposta.responseJSON;
             canco = {
 
-                file: album.tracks.items[0].preview_url,
-                thumb: playlist[i].images[0].url,
-                trackName: album.tracks.items[0].name,
+                file: playlist[i].preview_url,
+                thumb: playlist[i].album.images[0].url,
+                trackName: playlist[i].name,
                 trackArtist: artist,
-                trackAlbum: playlist[i].name,
-                id: album.tracks.items[0].id,
-                idArtista: album.artists[0].id
+                trackAlbum: playlist[i].album.name,
+                id: playlist[i].album.id,
+                idArtista: playlist[i].artists[0].id
             }
 
             playlistReproductor.push(canco);
-            i++;
-        })
+
+        }
+
+
+
 
         var t = { playlist: []};
         t.playlist = playlistReproductor;
@@ -233,24 +343,23 @@ function crearBuscador(){
 
     }
     var searchAlbums = function (query) {
-        var albums;
+        $("#resultats").show();
+
+
         $.ajax({
             url: 'https://api.spotify.com/v1/search',
             async: false,
             data: {
                 q: query,
-                type: 'album'
+                type: 'track'
             },
             success: function (response) {
-                console.log("Hola");
-                console.log(response);
                 callback(response);
             }
         });
+        window.location.href = "#resultats";
+
     };
-
-
-    console.log(document.getElementById('navbar-form'));
 
         document.getElementById('navbar-form').addEventListener('submit', function (e) {
             e.preventDefault();
@@ -406,13 +515,14 @@ function omplirTop(){
         });
 
         var cancoLastFM = resposta.responseJSON;
-
        var canco2 = {
             file:cancoLastFM.tracks.items[0].preview_url ,
             thumb: cancoLastFM.tracks.items[0].album.images[0].url ,
             trackName: topLastFM[i].name,
             trackArtist: topLastFM[i].artist.name,
             trackAlbum: cancoLastFM.tracks.items[0].album.name,
+            id: cancoLastFM.tracks.items[0].id,
+            idArtista: cancoLastFM.tracks.items[0].artists[0].id
         }
         playlistReproductor2.push(canco2);
         i++;
@@ -421,102 +531,6 @@ function omplirTop(){
     t2.playlist = playlistReproductor2;
     $('#rep2').jAudio(t2);
 
-
-    /*var limit_results = 15;
-// Inicia la aplicación cuando el DOM se ha cargado.
-    var country = "es";
-   // var key = google_api_key;
-    var video_category_id = 10;
-    var api_url = "https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=MostPopular&regionCode="+country+"&maxResults="+ limit_results +"&videoCategoryId="+ video_category_id +"&key="+"AIzaSyAO9gJjoY3zVLKCxF4gUAkJXQaZ-JBbiNo"+"&part=snippet,player";
-    //var api_url = "https:https://www.googleapis.com/youtube/v3/videoCategories?part=snippet&regionCode={e}s&key={AIzaSyAO9gJjoY3zVLKCxF4gUAkJXQaZ-JBbiNo}";
-    var resposta = $.ajax({
-        async: false,
-        url: api_url,
-        success: function (response) {
-            console.log(response);
-        }
-
-    });
-    console.log("----");
-    console.log(resposta);
-    var topYoutube = resposta.responseJSON.items;
-    var llistaTop;
-    var i = 0;
-    topYoutube.forEach(function(){
-
-        var resposta = $.ajax({
-            async: false,
-            url: 'https//api.spotify.com/v1/search?q='+topYoutube[i].snippet.title+'&type=track&limit=1',
-            success: function (response) {
-                console.log(response);
-            }
-        });
-
-        //var cancoSpoty = resposta.responseJSON;
-    /*
-        canco = {
-            file: album.tracks.items[0].preview_url,
-
-            thumb: playlist[i].images[0].url,
-            trackName: album.tracks.items[0].name,
-            trackArtist: artist,
-            trackAlbum: playlist[i].name,
-        }
-
-        playlistReproductor.push(canco);*/
-       /* i++;
-
-    })*/
-
-
 }
 
-/*--------------------
----------JQUERY-------
- --------------------*/
 
-/*--------------------
-¿Què és JQUERY?
-----------------------
-
-JQUERY  permet realitzar accions sobre elements. Podem realitzar diferents accions
-sobre alguns elements com una classe o un element amb un id concret.
-
-
------------------------
-JQUERY Selectors
------------------------
-
-Els Selectors permeten selecccionar i manipular els elements HTML. Els selectors són
-utilitzats per a trobar o seleccionar els elements HTML basant-se en el seu nom,
-id, classe, tipus, atribut, valor, etc.
-
-Tots els selectors comencen amb el signe del dòlar i parèntesi: $()
-
-Exemple. Seleccionem els paràgrafs: $("p")
-
-
-
- */
-
-
-
-$(document).ready(function(){
-/*
-    $.ajax({
-        url: 'https://api.spotify.com/api/token',
-        type: 'POST',
-        async: false,
-        data:{
-           grant_type: 'authorization_code',
-            code: 'code',
-            redirect_uri: redirect_uri
-        },
-        success: function (response) {
-            console.log("Succés!");
-        }
-    });*/
-
-
-
-});

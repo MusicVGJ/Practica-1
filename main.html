@@ -5,7 +5,6 @@
         <title>LSOUND</title>
         <link rel="shortcut icon" href="https://s20.postimg.org/i8vxq82vx/LS_Logo_Favicon.png" />
         <link rel="apple-touch-icon" href="https://s20.postimg.org/i8vxq82vx/LS_Logo_Favicon.png" />
-
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js"></script>
@@ -18,7 +17,6 @@
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-
         <link rel="stylesheet" media="screen" type="text/css" href="style.css">
 
 
@@ -28,81 +26,19 @@
 
         <header id="principal"> </header>
 
-        <section class="container-fluid" id="recomenats">
+        <section class="container-fluid" id="recomenats"></section>
+        <section  class="container-fluid" id="top"></section>
+        <section class="container-fluid" id="resultats"><div id="results"></div></section>
 
-        </section>
-
-        <section  class="container-fluid" id="top">
-
-
-
-            <!--
-            <div class='jAudio'>
-
-                <audio></audio>
-
-                <div class='jAudio--ui'>
-
-                    <div class='jAudio--thumb'></div>
-
-                    <div class='jAudio--status-bar'>
-
-                        <div class='jAudio--details'></div>
-                        <div class='jAudio--volume-bar'></div>
-
-                        <div class='jAudio--progress-bar'>
-                            <div class='jAudio--progress-bar-wrapper'>
-                                <div class='jAudio--progress-bar-played'>
-                                    <span class='jAudio--progress-bar-pointer'></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class='jAudio--time'>
-                            <span class='jAudio--time-elapsed'>00:00</span>
-                            <span class='jAudio--time-total'>00:00</span>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class='jAudio--controls'>
-                    <ul>
-                        <li><button class='jAudio--control jAudio--control-prev' data-action='prev'><span></span></button></li>
-                        <li><button class='jAudio--control jAudio--control-play' data-action='play'><span></span></button></li>
-                        <li><button class='jAudio--control jAudio--control-next' data-action='next'><span></span></button></li>
-                    </ul>
-                </div>
-
-                <div class='jAudio--playlist'>
-                </div>
-
-
-            </div>-->
-
-        </section>
-
-        <section class="container-fluid" id="resultats">
-
-            <div id="results"></div>
-
-
-        </section>
-
-<!--
-        <script id="results-template" type="text/x-handlebars-template">
-            {{#each albums.items}}
-            <div style="background-image:url({{images.0.url}})" data-album-id="{{id}}" class="cover"></div>
-            {{/each}}
-        </script>-->
+        <footer  class="podbar">
+            <p>Creado por VGJ para Projectos Web 1 - &copy;laSalle 2017</p>
+        </footer>
 
 
         <script src='resources/js/jaudio.js'></script>
         <script src='resources/js/jaudio2.js'></script>
-
+        <script src='resources/js/jaudio3.js'></script>
         <script src="mainJS.js"></script>
-      <!--  <script src='resources/js/main.js'></script>-->
 
 
 

@@ -1,20 +1,3 @@
-// Script info:
-// - Author: Michael Mammoliti
-// - Name: jAudio.js
-// - Version: 0.2.1
-// - js dipendencies: jQuery
-// - First Release: 25 November 2015
-// - Last Update: 13 November 2016
-// - GitHub: https://github.com/MichaelMammoliti/jAudio.js
-
-// Contact info
-// - GitHub: https://github.com/MichaelMammoliti
-// - Mail: mammoliti.michael@gmail.com
-// - Twitter: @MichMammoliti
-
-// License Info
-// - Released under the MIT license.
-
 
 var songs = [];
 
@@ -203,16 +186,51 @@ var songs = [];
           case "play":
 
             self.play.call(self, $btn);
-            var cancion = {
-              name:self.settings.playlist[self.currentTrack].trackName,
-              artist:self.settings.playlist[self.currentTrack].trackArtist,
-              album:self.settings.playlist[self.currentTrack].trackAlbum,
-              id:self.settings.playlist[self.currentTrack].id,
-              idArtist:self.settings.playlist[self.currentTrack].idArtista
-            };
-            console.log(songs);
-            songs.push(cancion);
-            localStorage.setItem('songs',JSON.stringify(songs));
+
+            var history = JSON.parse(localStorage.getItem("songs"));
+            var i = 0;
+            var trobat = false;
+            if(history != null){
+              history.forEach(function(){
+                if( self.settings.playlist[self.currentTrack].idArtista === history[i].idArtist){
+                  trobat = true;
+                }
+                i++;
+              });
+
+              if(trobat === false){
+                var cancion = {
+                  name:self.settings.playlist[self.currentTrack].trackName,
+                  artist:self.settings.playlist[self.currentTrack].trackArtist,
+                  album:self.settings.playlist[self.currentTrack].trackAlbum,
+                  id:self.settings.playlist[self.currentTrack].id,
+                  idArtist:self.settings.playlist[self.currentTrack].idArtista
+
+                };
+                history.push(cancion);
+
+                localStorage.setItem('songs',JSON.stringify(history));
+              }
+
+            }else{
+
+              var cancion = {
+                name:self.settings.playlist[self.currentTrack].trackName,
+                artist:self.settings.playlist[self.currentTrack].trackArtist,
+                album:self.settings.playlist[self.currentTrack].trackAlbum,
+                id:self.settings.playlist[self.currentTrack].id,
+                idArtist:self.settings.playlist[self.currentTrack].idArtista
+
+              };
+              history = [];
+              history.push(cancion);
+
+              localStorage.setItem('songs',JSON.stringify(history));
+
+            }
+
+
+
             break;
         };
 
@@ -228,16 +246,52 @@ var songs = [];
         if(self.currentTrack === index) return;
 
         self.changeTrack(index);
-        var cancion = {
-          name:self.settings.playlist[self.currentTrack].trackName,
-          artist:self.settings.playlist[self.currentTrack].trackArtist,
-          album:self.settings.playlist[self.currentTrack].trackAlbum,
-          id:self.settings.playlist[self.currentTrack].id,
-          idArtist:self.settings.playlist[self.currentTrack].idArtista
-        };
-        console.log(songs);
-        songs.push(cancion);
-        localStorage.setItem('songs',JSON.stringify(songs));
+        var history = JSON.parse(localStorage.getItem("songs"));
+        var i = 0;
+        var trobat = false;
+
+        if(history != null){
+          history.forEach(function(){
+            if( self.settings.playlist[self.currentTrack].idArtista === history[i].idArtist){
+              trobat = true;
+            }
+            i++;
+          });
+
+          if(trobat === false && self.currentState === "play"){
+            var cancion = {
+              name:self.settings.playlist[self.currentTrack].trackName,
+              artist:self.settings.playlist[self.currentTrack].trackArtist,
+              album:self.settings.playlist[self.currentTrack].trackAlbum,
+              id:self.settings.playlist[self.currentTrack].id,
+              idArtist:self.settings.playlist[self.currentTrack].idArtista
+
+            };
+            history.push(cancion);
+
+            localStorage.setItem('songs',JSON.stringify(history));
+          }
+
+        }else{
+          if(self.currentState === "play") {
+
+
+            var cancion = {
+              name: self.settings.playlist[self.currentTrack].trackName,
+              artist: self.settings.playlist[self.currentTrack].trackArtist,
+              album: self.settings.playlist[self.currentTrack].trackAlbum,
+              id: self.settings.playlist[self.currentTrack].id,
+              idArtist: self.settings.playlist[self.currentTrack].idArtista
+
+            };
+            history.push(cancion);
+
+            localStorage.setItem('songs', JSON.stringify(history));
+          }
+        }
+
+
+
       });
 
       // - volume's bar events
@@ -324,6 +378,8 @@ var songs = [];
           trackName     = track.trackName,
           trackArtist   = track.trackArtist,
           trackAlbum    = track.trackAlbum,
+          id            = track.id,
+          idArtist      = track.idArtist,
           template      =  "";
 
           template += "<p>";

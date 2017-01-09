@@ -1,19 +1,3 @@
-// Script info:
-// - Author: Michael Mammoliti
-// - Name: jAudio.js
-// - Version: 0.2.1
-// - js dipendencies: jQuery
-// - First Release: 25 November 2015
-// - Last Update: 13 November 2016
-// - GitHub: https://github.com/MichaelMammoliti/jAudio.js
-
-// Contact info
-// - GitHub: https://github.com/MichaelMammoliti
-// - Mail: mammoliti.michael@gmail.com
-// - Twitter: @MichMammoliti
-
-// License Info
-// - Released under the MIT license.
 
 (function($){
 
@@ -195,7 +179,51 @@
           case "next": self.next.call(self, $btn); break;
           case "pause": self.pause.call(self, $btn); break;
           case "stop": self.stop.call(self, $btn); break;
-          case "play": self.play.call(self, $btn); break;
+          case "play": self.play.call(self, $btn);
+
+            var history = JSON.parse(localStorage.getItem("songs"));
+            var i = 0;
+            var trobat = false;
+            if(history != null){
+              history.forEach(function(){
+                if( self.settings.playlist[self.currentTrack].idArtista === history[i].idArtist){
+                  trobat = true;
+                }
+                i++;
+              });
+
+              if(trobat === false){
+                var cancion = {
+                  name:self.settings.playlist[self.currentTrack].trackName,
+                  artist:self.settings.playlist[self.currentTrack].trackArtist,
+                  album:self.settings.playlist[self.currentTrack].trackAlbum,
+                  id:self.settings.playlist[self.currentTrack].id,
+                  idArtist:self.settings.playlist[self.currentTrack].idArtista
+
+                };
+                history.push(cancion);
+
+                localStorage.setItem('songs',JSON.stringify(history));
+              }
+
+            }else{
+
+              var cancion = {
+                name:self.settings.playlist[self.currentTrack].trackName,
+                artist:self.settings.playlist[self.currentTrack].trackArtist,
+                album:self.settings.playlist[self.currentTrack].trackAlbum,
+                id:self.settings.playlist[self.currentTrack].id,
+                idArtist:self.settings.playlist[self.currentTrack].idArtista
+
+              };
+              history = [];
+              history.push(cancion);
+
+              localStorage.setItem('songs',JSON.stringify(history));
+
+            }
+
+            break;
         };
 
       });
@@ -210,6 +238,51 @@
         if(self.currentTrack === index) return;
 
         self.changeTrack(index);
+        var history = JSON.parse(localStorage.getItem("songs"));
+        var i = 0;
+        var trobat = false;
+
+        if(history != null){
+          history.forEach(function(){
+            if( self.settings.playlist[self.currentTrack].idArtista === history[i].idArtist){
+              trobat = true;
+            }
+            i++;
+          });
+
+          if(trobat === false && self.currentState === "play"){
+            var cancion = {
+              name:self.settings.playlist[self.currentTrack].trackName,
+              artist:self.settings.playlist[self.currentTrack].trackArtist,
+              album:self.settings.playlist[self.currentTrack].trackAlbum,
+              id:self.settings.playlist[self.currentTrack].id,
+              idArtist:self.settings.playlist[self.currentTrack].idArtista
+
+            };
+            //history = [];
+            history.push(cancion);
+
+            localStorage.setItem('songs',JSON.stringify(history));
+          }
+
+        }else{
+          if(self.currentState === "play") {
+
+
+            var cancion = {
+              name: self.settings.playlist[self.currentTrack].trackName,
+              artist: self.settings.playlist[self.currentTrack].trackArtist,
+              album: self.settings.playlist[self.currentTrack].trackAlbum,
+              id: self.settings.playlist[self.currentTrack].id,
+              idArtist: self.settings.playlist[self.currentTrack].idArtista
+
+            };
+            history.push(cancion);
+
+            localStorage.setItem('songs', JSON.stringify(history));
+          }
+        }
+
       });
 
       // - volume's bar events
