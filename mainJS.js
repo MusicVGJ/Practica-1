@@ -74,9 +74,7 @@ function omplirRecomanats(){
             }
 
         }else{
-            console.log(history);
            for(var i = limit-1; i>=limit-10;i--){
-               console.log("Estic al FORRRRR!");
                 var resposta = $.ajax({
                     async: false,
                     url: 'https://api.spotify.com/v1/artists/' + history[i].idArtist + '/related-artists',
@@ -87,8 +85,6 @@ function omplirRecomanats(){
                 var artistesRecomanat = resposta.responseJSON;
                 recomanats.push(artistesRecomanat);
             }
-            console.log("recomanats");
-            console.log(recomanats);
 
             for(var i = 0; i < 10; i++){
                     var resposta = $.ajax({
@@ -188,9 +184,13 @@ function crearCabecera(){
 
     var a1 = document.createElement("a");
     var a2 = document.createElement("a");
+    //
+    var a3 = document.createElement("a");
 
     var t1 = document.createTextNode("RECOMMENDED ARTISTS");
     var t2 = document.createTextNode("TOP 10 HITS");
+    //
+    var t3 = document.createTextNode("SEARCH");
     var aux = document.createElement("div");
     var form = document.createElement("form");
     var input = document.createElement("input");
@@ -230,11 +230,14 @@ function crearCabecera(){
 
     a2.href = "#top";
     a2.appendChild(t2);
+    a3.href = "#resultats";
+    a3.appendChild(t3);
+
 
     li1.appendChild(a1);
     li2.appendChild(a2);
+    li3.appendChild(a3);
     li3.appendChild(form);
-
     ul.appendChild(li1);
     ul.appendChild(li2);
     ul.appendChild(li3);
@@ -491,6 +494,7 @@ function creaReproductor(){
 
     var divPlaylist = document.createElement("div");
     divPlaylist.className = "jAudio--playlist";
+    divPlaylist.id ="Layer1";
     divPrincipal.appendChild(divPlaylist);
 
     return divPrincipal;
